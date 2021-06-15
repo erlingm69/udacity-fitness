@@ -99,23 +99,6 @@ export function getMetricMetaInfo(metric) {
                 )
             }
         },
-        swim: {
-            displayName: 'Swim',
-            max: 9988,
-            unit: 'meters',
-            step: 100,
-            type: 'steppers',
-            getIcon() {
-                return (
-                    <View>
-                        <MaterialCommunityIcons name='swim'
-                            color={'black'}
-                            size={35}
-                        />
-                    </View>
-                )
-            }
-        },
         sleep: {
             displayName: 'Sleep',
             max: 24,
@@ -142,7 +125,7 @@ export function getMetricMetaInfo(metric) {
             getIcon() {
                 return (
                     <View>
-                        <FontAwesome name='food'
+                        <MaterialCommunityIcons name='food'
                             color={'black'}
                             size={35}
                         />
