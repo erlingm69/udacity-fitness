@@ -15,7 +15,7 @@ function SubmitBtn({ onPress }) {
 
 export default class AddEntry extends Component {
     state = {
-        run: 100,
+        run: 0,
         bike: 0,
         swim: 0,
         sleep: 0,
