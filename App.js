@@ -33,6 +33,7 @@ export default function App() {
       <TextInput value={input}
       onChangeText={handleTextChange}
       />}
+      <AddEntry />
     </KeyboardAvoidingView>
   );
 }
@@ -44,6 +45,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    width: 'auto'
   },
   img: {
     width: 100,
