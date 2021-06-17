@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { stylesheet, View, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Platform, View, Text, TouchableOpacity } from 'react-native'
 import { getMetricMetaInfo, timeToString, getDailyReminderValue } from '../utils/helpers'
 import UdaciSlider from './UdaciSlider'
 import UdaciSteppers from './UdaciSteppers'
@@ -9,11 +9,14 @@ import TextButton from './TextButton'
 import { submitEntry, removeEntry } from '../utils/api'
 import { connect } from 'react-redux'
 import { addEntry } from '../actions'
+import { purple, white } from '../utils/colors'
 
 function SubmitBtn({ onPress }) {
     return (
-        <TouchableOpacity onPress={onPress}>
-            <Text>SUBMIT</Text>
+        <TouchableOpacity
+            style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+            onPress={onPress}>
+            <Text style={styles.submitBtnText}>SUBMIT</Text>
         </TouchableOpacity>
     )
 }
@@ -62,7 +65,7 @@ class AddEntry extends Component {
 
         //  Update redux
         this.props.dispatch(addEntry({
-            [key] : getDailyReminderValue()
+            [key]: getDailyReminderValue()
         }))
 
         this.setState({
@@ -88,7 +91,7 @@ class AddEntry extends Component {
 
         //  Update redux
         this.props.dispatch(addEntry({
-            [key] : entry
+            [key]: entry
         }))
 
 
@@ -113,8 +116,8 @@ class AddEntry extends Component {
 
         if (this.props.alreadyLogged) {
             return (
-                <View>
-                    <Ionicons name="ios-happy-outline" size={100} />
+                <View style={styles.center}>
+                    <Ionicons name={Platform.OS === "ios" ? "ios-happy-outline" : "md-happy" } size={100} />
                     <Text>You've already logged your information for today</Text>
                     <TextButton onPress={this.reset}>
                         RESET
@@ -125,13 +128,13 @@ class AddEntry extends Component {
         }
 
         return (
-            <View>
+            <View style={styles.container}>
                 <DateHeader date={new Date().toLocaleDateString()} />
                 {
                     Object.keys(metaInfo).map((key) => {
                         const { getIcon, type, ...rest } = metaInfo[key]
                         const value = this.state[key]
-                        return (<View key={key}>
+                        return (<View key={key} style={styles.row}>
                             {getIcon()}
                             {
                                 type === 'slider' ?
@@ -152,11 +155,53 @@ class AddEntry extends Component {
     }
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 20,
+        backgroundColor: white
+    },
+    row: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center'
+    },
+    iosSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        borderRadius: 7,
+        marginRight: 40,
+        marginLeft: 40
+    },
+    androidSubmitBtn: {
+        backgroundColor: purple,
+        padding: 10,
+        borderRadius: 2,
+        marginRight: 30,
+        marginLeft: 30,
+        alignSelf: 'flex-end',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    submitBtnText: {
+        color: white,
+        fonstSize: 22,
+        textAlign: 'center'
+    },
+    center: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 30,
+        marginLeft: 30
+    }
+})
+
 function mapStateToProps(state) {
     const key = timeToString()
 
     return {
-        alreadyLogged : state[key] && state[key].today === undefined
+        alreadyLogged: state[key] && state[key].today === undefined
     }
 }
 
