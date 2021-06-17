@@ -65,7 +65,7 @@ class AddEntry extends Component {
 
         //  Update redux
         this.props.dispatch(addEntry({
-            [key]: getDailyReminderValue()
+            [key]: entry
         }))
 
         this.setState({
@@ -87,11 +87,10 @@ class AddEntry extends Component {
 
     reset = () => {
         const key = timeToString()
-        const entry = this.state
 
         //  Update redux
         this.props.dispatch(addEntry({
-            [key]: entry
+            [key]: getDailyReminderValue()
         }))
 
 
