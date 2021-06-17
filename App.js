@@ -15,7 +15,6 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 
 const store = createStore(reducer)
-debugger
 
 export default function App() {
   const [value, setValue] = useState(0)
@@ -32,7 +31,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <View>
+      <View style={{flex: '1'}}>
         <AddEntry />
       </View>
     </Provider>

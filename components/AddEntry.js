@@ -155,8 +155,6 @@ class AddEntry extends Component {
 function mapStateToProps(state) {
     const key = timeToString()
 
-    debugger
-
     return {
         alreadyLogged : state[key] && state[key].today === undefined
     }
