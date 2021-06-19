@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     },
     submitBtnText: {
         color: white,
-        fonstSize: 22,
+        fontSize: 22,
         textAlign: 'center'
     },
     center: {
